@@ -24,6 +24,15 @@ public class CustomerController {
          return customerRepository.findAll();
      }
 
+     @GetMapping("/customers/{customerId}")
+     public String getCustomerbyId(@PathVariable Integer customerId){
+        Customer customer = customerRepository.findById(customerId).orElse(null);
+         if (customer == null) {
+             return "Customer does not exist";
+         }
+         return customer.toString();
+     }
+
      @PostMapping("/customers")
     public String createCustomer(@RequestBody Customer customer){
         return customerRepository.save(customer).toString();

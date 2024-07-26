@@ -1,0 +1,7 @@
+insert into customer values (1000,'example@mail.com','Trial', 'Head',
+'{bcrypt}$2a$12$6n3W21a0w5JBmwl7HDhur.Dnv724in98mE0BYsonb710eyJAw1DJa',
+'admin');
+
+insert into authorities values(1000,1, 'READ'),(1000,2, 'WRITE');
+
+The password is abcd

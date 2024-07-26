@@ -1,6 +1,5 @@
 package com.inorg.miniproject;
 
-import com.github.javafaker.Faker;
 import com.inorg.miniproject.model.Customer;
 import com.inorg.miniproject.model.Orders;
 import com.inorg.miniproject.repository.CustomerRepository;

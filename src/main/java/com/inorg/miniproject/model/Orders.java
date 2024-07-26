@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -36,6 +38,12 @@ public class Orders {
             foreignKey = @ForeignKey(name = "customer_order_fk")
     )
     private Customer customer;
+
+    @OneToMany(
+            mappedBy = "order_id",
+            cascade = {CascadeType.PERSIST,CascadeType.REMOVE}
+    )
+    private List<OrderDetails> orderDetails= new ArrayList<>();
 
     @Column(name = "order_date", columnDefinition = "DATE", nullable = false)
     private Date orderDate;

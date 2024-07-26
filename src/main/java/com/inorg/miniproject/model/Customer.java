@@ -1,16 +1,18 @@
 package com.inorg.miniproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
-@Entity(name = "Customer")
-@Table(name = "Customer", uniqueConstraints = {
+@Entity(name = "customer")
+@Table(name = "customer", uniqueConstraints = {
         @UniqueConstraint(name = "unique_customer_email",columnNames = {"email"})
 })
 public class Customer {
@@ -52,11 +54,26 @@ public class Customer {
     )
     private String email;
 
+    @JsonIgnore
+    @Column(name = "password",nullable = false)
+    private String password;
+
+    @Column(
+            name = "role",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String role;
+
     @OneToMany(
             mappedBy = "customer",
             cascade = {CascadeType.PERSIST,CascadeType.REMOVE}
     )
     List<Orders> orders = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer",fetch = FetchType.EAGER)
+    private Set<Authority> authorities;
 
     public void addOrder(Orders order){
         if(!this.orders.contains(order)) {
